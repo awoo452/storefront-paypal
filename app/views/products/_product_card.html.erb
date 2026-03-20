@@ -1,0 +1,24 @@
+<% link_class = local_assigns.fetch(:link_class, "product-link") %>
+
+<% image_key = product.image_key.presence || product.image_alt_key %>
+
+<%= link_to product_path(product), class: link_class, data: { turbo: false } do %>
+  <div class="product">
+    <% if image_key.present? %>
+      <% proxy_url = image_proxy_url(image_key, width: 440, height: 280, fit: "inside", format: "webp") %>
+      <% if proxy_url.present? %>
+        <%= image_tag proxy_url, alt: product.name, loading: "lazy" %>
+      <% end %>
+    <% else %>
+      <%= image_tag "coming-soon.svg", alt: "Image coming soon", loading: "lazy" %>
+    <% end %>
+
+    <h3 class="product-title"><%= product.name %></h3>
+    <p class="product-description"><%= product.description %></p>
+    <% if product.price_hidden? %>
+      <p>Coming Soon</p>
+    <% else %>
+      <p>$<%= number_with_precision(product.price, precision: 2) %></p>
+    <% end %>
+  </div>
+<% end %>

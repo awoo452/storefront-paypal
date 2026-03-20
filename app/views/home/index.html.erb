@@ -1,0 +1,15 @@
+<section class="products-page">
+  <h1>Storefront</h1>
+  <p class="empty-state">A minimal storefront template with vendor pricing, cart, and PayPal checkout.</p>
+
+  <% if @featured_products.any? %>
+    <div class="products-grid">
+      <% @featured_products.each do |product| %>
+        <%= render "products/product_card", product: product %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No featured products yet. Add some in admin or browse the catalog.</p>
+    <%= link_to "View all products", products_path, class: "account-parts-link", data: { turbo: false } %>
+  <% end %>
+</section>

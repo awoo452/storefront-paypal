@@ -1,0 +1,41 @@
+<section class="admin-shell">
+  <div class="admin-page">
+    <header class="admin-hero admin-hero--compact">
+      <div>
+        <p class="admin-kicker">Orders</p>
+        <h1 class="admin-title">Order queue</h1>
+        <p class="admin-subtitle">Latest purchases with totals and current status.</p>
+      </div>
+      <%= link_to "Back to admin", admin_root_path, class: "admin-secondary-link" %>
+    </header>
+
+    <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td>
+            <%= link_to "##{order.id}", admin_order_path(order) %>
+          </td>
+          <td><%= order.user.email %></td>
+          <td>$<%= number_with_precision(order.total, precision: 2) %></td>
+          <td>
+            <span class="status status-<%= order.status %>">
+              <%= order.status.capitalize %>
+            </span>
+          </td>
+          <td><%= order.created_at.strftime("%Y-%m-%d") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+</section>

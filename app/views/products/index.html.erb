@@ -1,0 +1,13 @@
+<section class="products-page">
+  <h1>Products</h1>
+
+  <% if @products.any? %>
+    <div class="products-grid">
+      <% @products.each do |product| %>
+        <%= render "products/product_card", product: product %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="empty-state">No products available right now.</p>
+  <% end %>
+</section>

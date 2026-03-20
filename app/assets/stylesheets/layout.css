@@ -1,0 +1,60 @@
+:root {
+  --font-heading: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-body: Verdana, sans-serif;
+  --color-bg: #e5e5e5;
+  --color-bg-alt: #f0f0f0;
+  --color-surface: #fff;
+  --color-contrast: #fff;
+  --color-text: #222;
+  --color-muted: #555;
+  --color-border: #ccc;
+  --color-border-light: #eee;
+  --color-accent: #000;
+  --color-accent-hover: #222;
+  --color-overlay: rgba(0, 0, 0, 0.7);
+  --color-success: #1b6e2b;
+  --color-error: #a63b2d;
+  --color-danger: #8f1d1d;
+  --color-danger-border: #c24b4b;
+  --color-danger-bg: #fff6f6;
+  --shadow-text: 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-hero: 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 6px 12px rgba(0, 0, 0, 0.08);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+}
+
+.layout {
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.layout *,
+.layout *::before,
+.layout *::after {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  text-shadow: var(--shadow-text);
+}
+
+.empty-state {
+  color: var(--color-muted);
+  font-style: italic;
+  margin-top: var(--space-3);
+}

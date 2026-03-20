@@ -1,0 +1,38 @@
+<nav class="nav">
+  <%= link_to "Storefront", root_path, class: "nav-logo" %>
+
+  <div class="nav-links">
+    <details class="nav-dropdown">
+      <summary class="nav-dropdown-trigger">Shop</summary>
+      <div class="nav-dropdown-menu">
+        <%= link_to "Products", products_path, data: { turbo: false } %>
+        <% if user_signed_in? %>
+          <%= link_to "Cart", cart_path, data: { turbo: false } %>
+        <% end %>
+      </div>
+    </details>
+
+    <details class="nav-dropdown">
+      <summary class="nav-dropdown-trigger">Account</summary>
+      <div class="nav-dropdown-menu">
+        <% if user_signed_in? %>
+          <%= button_to "Logout",
+                destroy_user_session_path,
+                method: :delete,
+                form: { data: { turbo: false }, class: "nav-dropdown-form" },
+                class: "nav-dropdown-button" %>
+
+          <% if current_user.admin? %>
+            <hr>
+            <%= link_to "Admin Dashboard", admin_root_path %>
+          <% end %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path %>
+          <%= link_to "Sign up", new_user_registration_path %>
+        <% end %>
+      </div>
+    </details>
+  </div>
+</nav>
+
+<hr class="nav-hr">

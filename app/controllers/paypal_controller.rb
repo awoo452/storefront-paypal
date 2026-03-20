@@ -1,0 +1,42 @@
+class PaypalController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [ :orders, :capture ]
+  before_action :authenticate_user_json!
+
+  def orders
+    cart = Cart::Session.new(session: session)
+    result = Paypal::CreateOrder.call(cart: cart)
+
+    if result.success?
+      render json: { id: result.order_id }
+    else
+      render_error(result.error, result.status || :unprocessable_entity)
+    end
+  end
+
+  def capture
+    cart = Cart::Session.new(session: session)
+    result = Paypal::CaptureOrder.call(
+      order_id: params[:id],
+      user: current_user,
+      cart: cart
+    )
+
+    if result.success?
+      render json: { status: "ok", order_id: result.order.id }
+    else
+      render_error(result.error, result.status || :unprocessable_entity)
+    end
+  end
+
+  private
+
+  def authenticate_user_json!
+    return if user_signed_in?
+
+    render json: { error: "Please sign in or create an account to purchase." }, status: :unauthorized
+  end
+
+  def render_error(message, status)
+    render json: { error: message }, status: status
+  end
+end
